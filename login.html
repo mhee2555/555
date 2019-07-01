@@ -27,7 +27,7 @@
   
         if (user != "" && password != "") {
           var data = {
-            'PAGE': 'login wtf',
+            'PAGE': 'login',
             'USERNAME': user,
             'PASSWORD': password
           };
@@ -56,7 +56,11 @@
           type: 'post',
           beforeSend: function () {
             swal({
+<<<<<<< HEAD
               title: 'Please wait..',
+=======
+              title: 'Please wait..jajap',
+>>>>>>> 68d619554e487fcf3172498063552b6c0acc837c
               text: 'Processing',
               allowOutsideClick: false
             })
