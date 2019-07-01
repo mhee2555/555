@@ -881,6 +881,7 @@ $array = json_decode($json,TRUE);
             } else if (temp["form"] == 'getImport' || temp["form"] == 'ShowDetail') {
               $("#TableItemDetail tbody").empty();
               var isStatus = $("#IsStatus").val();
+              $('#department').val(temp['DepCode']);
               for (var i = 0; i < temp["Row"]; i++) {
                 var rowCount = $('#TableItem >tbody >tr').length;
                 var chkunit = "<select onchange='convertUnit(\"" + temp[i]['RowID'] +"\",this)' class='form-control' id='Unit_" + i + "'>";

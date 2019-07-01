@@ -75,8 +75,8 @@ function ShowDetail_InStock($conn,$DATA){
     WHERE hospital.HptCode = 1 AND department.DepCode = 1
     GROUP BY ItemCode ORDER BY ItemCode";
   }
-  $return['Sql'] = $Sql;
-  $return['sch'] = $chk;
+  // $return['Sql'] = $Sql;
+  // $return['sch'] = $chk;
 
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -92,7 +92,6 @@ function ShowDetail_InStock($conn,$DATA){
     $ItemCode                         = $Result['ItemCode'];
     $hos                         = $Result['HptCode'];
     $DepCode	      = $Result['DepCode'];
-
 
     $count2 = 0;
     $sSql = "SELECT department_sub.DepSubCode,
@@ -127,6 +126,27 @@ function ShowDetail_InStock($conn,$DATA){
         $return[$Qty1][$count2] = $QtyResult['total']==null?0:$QtyResult['total'];
       }
       #---------------------------------Qty--------------------------------------
+      // $SqlChk = "SELECT disburse_detail.DocNo,
+      // disburse_detail.DepCode,
+      // disburse_detail.DepSubCode,
+      // disburse_detail.ItemCode,
+      // disburse.IsStatus
+      // FROM disburse_detail 
+      // INNER JOIN disburse ON disburse.DocNo = disburse_detail.DocNo
+      // WHERE disburse_detail.DepCode = $DepCode AND disburse_detail.DepSubCode = $DepSubCode";
+      // $ChkQuery = mysqli_query($conn, $SqlChk);
+      // while ($ChkResult = mysqli_fetch_assoc($ChkQuery)) {
+      //   $Chk1 = "DepCode_" . $ItemCode . "_" . $count;
+      //   $Chk2 = "DepSubCode_" . $ItemCode . "_" . $count;
+      //   $Chk3 = "ItemCode_" . $ItemCode . "_" . $count;
+      //   $Chk4 = "IsStatus_" . $ItemCode . "_" . $count;
+      //   $return[$Chk1][$count2] = $ChkResult['DepCode'];
+      //   $return[$Chk2][$count2] = $ChkResult['DepSubCode'];
+      //   $return[$Chk3][$count2] = $ChkResult['ItemCode'];
+      //   $return[$Chk4][$count2] = $ChkResult['IsStatus'];
+      //   $return['Chk'] = $SqlChk;
+      // }
+
       $count2++;
     }
     $return[$m3][$count] = $count2;
@@ -165,9 +185,10 @@ function getDepartment($conn, $DATA)
   $boolean = false;
   $Hotp = $DATA["Hotp"];
   $Sql = "SELECT department.DepCode,department.DepName
-		  FROM department
-		  WHERE department.HptCode = $Hotp
-		  AND department.IsStatus = 0";
+          FROM department
+          WHERE department.HptCode = $Hotp
+          AND department.IsStatus = 0
+          ORDER BY department.DepName ASC";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['DepCode'] = $Result['DepCode'];
@@ -201,7 +222,9 @@ function getDepartment_sub($conn, $DATA)
   $DepCode = $DATA["DepCode"];
   $Sql = "SELECT department_sub.DepSubCode, department_sub.DepSubName
 		  FROM department_sub
-      WHERE department_sub.HptCode = $Hotp AND department_sub.DepCode = $DepCode";
+      WHERE department_sub.HptCode = $Hotp 
+      AND department_sub.DepCode = $DepCode
+      ORDER BY department.DepName ASC";
       $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -982,8 +1005,8 @@ function Select_FromStock($conn, $DATA)
 
     }
     $return['Qty']  = $DATA['Qty'];
-
-  if ($boolean) {
+  
+    if ($boolean) {
     $return['status'] = "success";
     $return['form'] = "Select_FromStock";
     echo json_encode($return);

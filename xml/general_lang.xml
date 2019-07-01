@@ -176,4 +176,5 @@
 <fromstock><en>From Stock</en><th>จากคลัง</th></fromstock>
 <requested><en>Requested</en><th>คลังที่ขอ</th></requested>
 <stockout><en>Stock Out</en><th>ส่งออก</th></stockout>
+<detaildoc><en>Detail Document Out</en><th>รายละเอียดเอกสารส่งออก</th></detaildoc>
 </lang>

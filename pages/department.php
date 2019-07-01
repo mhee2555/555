@@ -758,7 +758,7 @@ $array = json_decode($json, true);
                                 timer: 2000,
                                 confirmButtonText: 'Ok'
                             }).then(function() {
-
+                                
                             }, function(dismiss) {
                                 $('.checkblank').each(function() {
                                     $(this).val("");

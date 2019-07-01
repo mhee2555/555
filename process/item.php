@@ -149,7 +149,7 @@ function getCatagory($conn, $DATA)
           FROM
           item_category
           WHERE item_category.IsStatus = 0
-          ";
+          ORDER BY item_category.CategoryName ASC";
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {

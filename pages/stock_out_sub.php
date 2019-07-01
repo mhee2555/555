@@ -73,7 +73,8 @@ $array = json_decode($json,TRUE);
       OnLoadPage();
       getDepartment();
       getDepartment_sub();
-      getDepartment_sub2();
+      
+      //getDepartment_sub2();
       // CreateDocument();
       //==============================
       $('.TagImage').bind('click', {
@@ -254,7 +255,7 @@ $array = json_decode($json,TRUE);
       var Hotp = $('#hotpital2 option:selected').attr("value");
       var DepCode = $('#Dep2 option:selected').attr("value");
       if (typeof Hotp == 'undefined') Hotp = "1";
-      if (typeof DepCode == 'undefined') DepCode = "1";
+      //if (typeof DepCode == 'undefined') DepCode = "1";
       // alert(Hotp);
       // alert(DepCode);
       var data = {
@@ -644,6 +645,8 @@ $array = json_decode($json,TRUE);
                 $("#department").append(Str);
                 $("#Dep2").append(Str);
               }
+              getDepartment_sub2();
+              getDepartment_sub();
             } else if (temp["form"] == 'getDepartment_sub') {
               $("#department_sub").empty();
               for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
@@ -771,22 +774,19 @@ $array = json_decode($json,TRUE);
             } else if (temp["form"] == 'getImport' || temp["form"] == 'ShowDetail') {
               $("#TableItemDetail tbody").empty();
               var isStatus = $("#IsStatus").val();
+              $('#department').val(temp['DepCode']);
               for (var i = 0; i < temp["Row"]; i++) {
                 var rowCount = $('#TableItem >tbody >tr').length;
-
-                var chkunit = "<select onchange='convertUnit(\"" + temp[i]['RowID'] +
-                  "\",this)' class='form-control' id='Unit_" + i + "'>";
+                var chkunit = "<select disabled onchange='convertUnit(\"" + temp[i]['RowID'] + "\",this)' class='form-control' id='Unit_" + i + "'>";
                 chkunit += "<option selected>-</option>";
                 var nUnit = temp[i]['UnitName'];
                 for (var j = 0; j < temp['Cnt_' + temp[i]['ItemCode']][i]; j++) {
 
                   if (temp[i]['DepSubCode'] == temp['DepSubCode_' + temp[i]['ItemCode'] + '_' + i][j]) {
-                    chkunit += "<option selected value='" + temp['DepSubCode_' + temp[i]['ItemCode'] + '_' + i][
-                      j] + "'>" + temp['DepSubName_' + temp[i]['ItemCode'] + '_' + i][j] + "</option>";
+                    chkunit += "<option selected  value='" + temp['DepSubCode_' + temp[i]['ItemCode'] + '_' + i][ j] + "'>" + temp['DepSubName_' + temp[i]['ItemCode'] + '_' + i][j] + "</option>";
 
                   } else {
-                    chkunit += "<option value='" + temp['DepSubCode_' + temp[i]['ItemCode'] + '_' + i][j] + "'>" +
-                      temp['DepSubName_' + temp[i]['ItemCode'] + '_' + i][j] + "</option>";
+                    chkunit += "<option value='" + temp['DepSubCode_' + temp[i]['ItemCode'] + '_' + i][j] + "'>" + temp['DepSubName_' + temp[i]['ItemCode'] + '_' + i][j] + "</option>";
                   }
 
                 }
@@ -795,27 +795,12 @@ $array = json_decode($json,TRUE);
                 var chkDoc = "<input type='radio' name='checkrow' id='checkrow' value='" + temp[i]['RowID'] +
                   "," + temp[i]['ItemName'] + "'>";
 
-                var Qty =
-                  "<div class='row' style='margin-left:5px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\"" +
-                  i +
-                  "\")'>-</button><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;' " +
-                  st2 + " id='qty1_" + i + "' value='" + temp[i]['Qty'] +
-                  "' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\"" + i +
-                  "\")'>+</button></div>";
-                // var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode']+"\")'>-</button><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['ParQty']+"' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode']+"\")'>+</button></div>";
-                //var OleQty = "<div class='row' style='margin-left:2px;'><input type='hidden' class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='OleQty_"+i+"' value='"+temp[i]['MaxQty']+"' ></div>";
-
-                var Weight =
-                  "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;font-family:THSarabunNew;font-size:24px;' id='weight_" +
-                  i + "' value='" + temp[i]['Weight'] + "' OnBlur='updateWeight(\"" + i + "\",\"" + temp[i][
-                    'RowID'
-                  ] + "\")'></div>";
-                var depart = "<div class='row' style='margin-left:2px;'>  <select id='department" + i +
-                  "' > </select> </div>"
-                var Price =
-                  "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:110px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='price_" +
-                  i + "' value='" + temp[i]['Price'] + "' OnBlur='updateWeight(\"" + i + "\",\"" + temp[i][
-                    'RowID'] + "\")'></div>";
+                // var Qty = "<div class='row' style='margin-left:5px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\"" +
+                //   i + "\")'>-</button><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;' " +
+                //   st2 + " id='qty1_" + i + "' value='" + temp[i]['Qty'] + "' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\"" + i + "\")'>+</button></div>";
+                var depart = "<div class='row' style='margin-left:2px;'>  <select id='department" + i + "' > </select> </div>"
+                var Price =  "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:110px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='price_" +
+                  i + "' value='" + temp[i]['Price'] + "' OnBlur='updateWeight(\"" + i + "\",\"" + temp[i][ 'RowID'] + "\")'></div>";
 
                 $StrTR = "<tr id='tr" + temp[i]['RowID'] + "'>" +
                   "<td style='width: 10%;'>" + chkDoc + " <label style='margin-left:10px;'> " + (i + 1) +
@@ -823,7 +808,7 @@ $array = json_decode($json,TRUE);
                   "<td style='width: 10%;'>" + temp[i]['ItemCode'] + "</td>" +
                   "<td style='width: 19%;'>" + temp[i]['ItemName'] + "</td>" +
                   "<td style='width: 17%;font-size:24px;'>" + nUnit + "</td>" +
-                  "<td style='width: 22%;'>" + Qty + "</td>" +
+                  "<td style='width: 22%;text-align: center;padding-right: 88px;'>" + temp[i]['Qty'] + "</td>" +
                   "<td style='width: 20%;'>" + chkunit + "</td>" +
                   "<td hidden ><input  id='id_" + i + "' value='" + temp[i]['Id'] + "'></td>" +
 
@@ -861,6 +846,9 @@ $array = json_decode($json,TRUE);
                   $('#unit' + i).prop('disabled', true);
                 }
               }
+              $('#home-tab').text('<?php echo $array['detail'][$language]; ?>');
+              $('#department_sub').attr('hidden',true);
+              $('#depsub').attr('hidden',true);
             } else if ((temp["form"] == 'ShowItem')) {
               var st1 = "style='font-size:24px;margin-left:20px; width:160px;font-family:THSarabunNew'";
               var st2 =
@@ -1120,7 +1108,7 @@ $array = json_decode($json,TRUE);
           <div class="container-fluid">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['titlestockin'][$language]; ?></a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['detail'][$language]; ?></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><?php echo $array['search'][$language]; ?></a>
@@ -1154,7 +1142,7 @@ $array = json_decode($json,TRUE);
                               </select>
                             </div>
                           </div>
-                          <div style="margin-left:30px;width:120px;">
+                          <div style="margin-left:30px;width:120px;" id='depsub'>
                             <label><?php echo $array['department_sub'][$language]; ?></label>
                           </div>
                           <div style="width:220px;">
@@ -1233,7 +1221,7 @@ $array = json_decode($json,TRUE);
                           <div class="col-md-1">
                             <div class="row" style="margin-left:2px;">
                               <div class="row" style="margin-left:20px;">
-                                <button style="width:105px" type="button" class="btn btn-success" onclick="findDoc()" id="bSave"><?php echo $array['save'][$language]; ?></button>
+                                <button style="width:105px" type="button" class="btn btn-success" onclick="findDoc()" id="bSave"><?php echo $array['show'][$language]; ?></button>
                               </div>
                             </div>
                           </div>

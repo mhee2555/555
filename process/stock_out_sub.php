@@ -44,7 +44,8 @@ function getDepartment($conn, $DATA)
   $Sql = "SELECT department.DepCode,department.DepName
 		  FROM department
 		  WHERE department.HptCode = $Hotp
-		  AND department.IsStatus = 0";
+      AND department.IsStatus = 0
+      ORDER BY department.DepName ASC";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['DepCode'] = $Result['DepCode'];
@@ -75,7 +76,9 @@ function getDepartment_sub($conn, $DATA)
   $DepCode = $DATA["DepCode"];
   $Sql = "SELECT department_sub.DepSubCode, department_sub.DepSubName
 		  FROM department_sub
-      WHERE department_sub.HptCode = $Hotp AND department_sub.DepCode = $DepCode";
+      WHERE department_sub.HptCode = $Hotp 
+      AND department_sub.DepCode = $DepCode
+      ORDER BY department_sub.DepSubName ASC";
       $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -107,7 +110,9 @@ function getDepartment_sub2($conn, $DATA)
   $DepCode = $DATA["DepCode"];
   $Sql = "SELECT department_sub.DepSubCode, department_sub.DepSubName
 		  FROM department_sub
-      WHERE department_sub.HptCode = $Hotp AND department_sub.DepCode = $DepCode";
+      WHERE department_sub.HptCode = $Hotp
+      AND department_sub.DepCode = $DepCode
+      ORDER BY department_sub.DepSubName ASC";
       $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -118,6 +123,7 @@ function getDepartment_sub2($conn, $DATA)
   }
 
   if ($boolean) {
+    $return['DepCode'] = $DepCode;//*
     $return['status'] = "success";
     $return['form'] = "getDepartment_sub2";
     echo json_encode($return);
@@ -824,6 +830,7 @@ function ShowDetail($conn, $DATA)
   stock_out_detail.Id,
   stock_out_detail.ItemCode,
   stock_out_detail.DepSubCode,
+  stock_out_detail.DepCode,
   item.ItemName,
   item.UnitCode AS UnitCode1,
   item_unit.UnitName,
@@ -836,6 +843,7 @@ function ShowDetail($conn, $DATA)
   INNER JOIN item_unit ON stock_out_detail.UnitCode = item_unit.UnitCode
   WHERE stock_out_detail.DocNo = '$DocNo'
   ORDER BY stock_out_detail.Id DESC";
+  // $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['RowID']      = $Result['Id'];
@@ -848,13 +856,17 @@ function ShowDetail($conn, $DATA)
     $return[$count]['Qty']         = $Result['Qty'];
     $UnitCode                     = $Result['UnitCode1'];
     $ItemCode                     = $Result['ItemCode'];
+    $DepCode                     = $Result['DepCode'];
+    $return['DepCode']  = $Result['DepCode'];
 
   $count2 = 0;
   $sSql = "SELECT department_sub.DepSubCode,department_sub.DepSubName
           FROM department_sub
           WHERE department_sub.HptCode = $Hotpx
-          AND department_sub.DepCode = $deptCodex
+          AND department_sub.DepCode = $DepCode
           AND department_sub.IsStatus = 0";
+  // $return['department'] = $sSql;
+
   $xxmeQuery = mysqli_query($conn, $sSql);
   while ($zResult = mysqli_fetch_assoc($xxmeQuery)) {
 

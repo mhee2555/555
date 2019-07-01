@@ -44,7 +44,8 @@ function getDepartment($conn, $DATA)
   $Sql = "SELECT department.DepCode,department.DepName
 		  FROM department
 		  WHERE department.HptCode = $Hotp
-		  AND department.IsStatus = 0";
+      AND department.IsStatus = 0
+      ORDER BY department.DepName ASC";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['DepCode'] = $Result['DepCode'];
@@ -750,6 +751,7 @@ function ShowDetail($conn, $DATA)
     stock_in_detail.Id,
     stock_in_detail.ItemCode,
     stock_in_detail.DepSubCode,
+    stock_in_detail.DepCode,
     item.ItemName,
     item.UnitCode AS UnitCode1,
     item_unit.UnitName,
@@ -774,11 +776,12 @@ function ShowDetail($conn, $DATA)
     $return[$count]['Qty']         = $Result['Qty'];
     $UnitCode                     = $Result['UnitCode1'];
     $ItemCode                     = $Result['ItemCode'];
+    $DepCode                     = $Result['DepCode'];
 
     $count2 = 0;
     $sSql = "SELECT department_sub.DepSubCode,department_sub.DepSubName
               FROM department_sub
-              WHERE department_sub.HptCode = $Hotpx AND department_sub.DepCode = $deptCodex AND department_sub.IsStatus = 0";
+              WHERE department_sub.HptCode = $Hotpx AND department_sub.DepCode = $DepCode AND department_sub.IsStatus = 0";
     $xxmeQuery = mysqli_query($conn, $sSql);
     while ($zResult = mysqli_fetch_assoc($xxmeQuery)) {
       $m1 = "DepSubCode_" . $ItemCode . "_" . $count;

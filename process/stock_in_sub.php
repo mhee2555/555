@@ -44,7 +44,8 @@ function getDepartment($conn, $DATA)
   $Sql = "SELECT department.DepCode,department.DepName
 		  FROM department
 		  WHERE department.HptCode = $Hotp
-		  AND department.IsStatus = 0";
+      AND department.IsStatus = 0
+      ORDER BY department.DepName ASC";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['DepCode'] = $Result['DepCode'];
@@ -75,7 +76,9 @@ function getDepartment_sub($conn, $DATA)
   $DepCode = $DATA["DepCode"];
   $Sql = "SELECT department_sub.DepSubCode, department_sub.DepSubName
 		  FROM department_sub
-      WHERE department_sub.HptCode = $Hotp AND department_sub.DepCode = $DepCode";
+      WHERE department_sub.HptCode = $Hotp AND
+      department_sub.DepCode = $DepCode
+      ORDER BY department_sub.DepSubName ASC";
       $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -107,7 +110,9 @@ function getDepartment_sub2($conn, $DATA)
   $DepCode = $DATA["DepCode"];
   $Sql = "SELECT department_sub.DepSubCode, department_sub.DepSubName
 		  FROM department_sub
-      WHERE department_sub.HptCode = $Hotp AND department_sub.DepCode = $DepCode";
+      WHERE department_sub.HptCode = $Hotp 
+      AND department_sub.DepCode = $DepCode
+      ORDER BY department_sub.DepSubName ASC";
       $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -229,11 +234,13 @@ function ShowDocument($conn, $DATA)
     $Sql = "SELECT
       hospital.HptName,
       department.DepName,
+      department.DepCode,
       stock_in.DocNo,
       stock_in.DocDate,
       stock_in.Total,
       employee.FirstName,
       department_sub.DepSubName,
+      department_sub.DepSubCode,
       employee.LastName,TIME(stock_in.Modify_Date) AS xTime,stock_in.IsStatus
     FROM stock_in_detail
     INNER JOIN item ON item.ItemCode = stock_in_detail.ItemCode
@@ -253,8 +260,10 @@ function ShowDocument($conn, $DATA)
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptName']   = $Result['HptName'];
     $return[$count]['DepName']   = $Result['DepName'];
+    $return[$count]['DepCode']   = $Result['DepCode'];
     $return[$count]['DocNo']   = $Result['DocNo'];
     $return[$count]['DepSubName']   = $Result['DepSubName'];
+    $return[$count]['DepSubCode']   = $Result['DepSubCode'];
     $return[$count]['DocDate']   = $Result['DocDate'];
     $return[$count]['Record']   = $Result['FirstName'] . " " . $Result['LastName'];
     $return[$count]['RecNow']   = $Result['xTime'];
@@ -294,7 +303,7 @@ function SelectDocument($conn, $DATA)
     INNER JOIN hospital ON department.HptCode = hospital.HptCode
     INNER JOIN users ON stock_in.Modify_Code = users.ID
     INNER JOIN employee ON users.EmpCode = employee.EmpCode
-    WHERE stock_in.DocNo = '$DocNo'";
+    WHERE stock_in.DocNo = '$DocNo' a";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptName']   = $Result['HptName'];

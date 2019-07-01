@@ -301,7 +301,7 @@ $array = json_decode($json,TRUE);
         selectdocument = $(this).val();
       });
       var deptCode = $('#Dep2 option:selected').attr("value");
-      if (typeof deptCode == 'undefined') deptCode = "1";
+      //if (typeof deptCode == 'undefined') deptCode = "1";
       $('#department').attr("disabled", true);
       var data = {
         'STATUS': 'SelectDocument',
@@ -644,6 +644,8 @@ $array = json_decode($json,TRUE);
                 $("#department").append(Str);
                 $("#Dep2").append(Str);
               }
+              getDepartment_sub2();
+              getDepartment_sub();
             } else if (temp["form"] == 'getDepartment_sub') {
               $("#department_sub").empty();
               for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
@@ -712,6 +714,7 @@ $array = json_decode($json,TRUE);
                   "<td style='width: 10%;'>" + temp[i]['RecNow'] + "</td>" +
                   "<td " + Style + "> " + Status + "</td>" +
                   "</tr>";
+                  alert($(data-dep).val());
                 if (rowCount == 0) {
                   $("#TableDocument tbody").append($StrTr);
                 } else {
@@ -1233,7 +1236,7 @@ $array = json_decode($json,TRUE);
                           <div class="col-md-1">
                             <div class="row" style="margin-left:2px;">
                               <div class="row" style="margin-left:20px;">
-                                <button style="width:105px" type="button" class="btn btn-success" onclick="findDoc()" id="bSave"><?php echo $array['save'][$language]; ?></button>
+                                <button style="width:105px" type="button" class="btn btn-success" onclick="findDoc()" id="bSave"><?php echo $array['show'][$language]; ?></button>
                               </div>
                             </div>
                           </div>
