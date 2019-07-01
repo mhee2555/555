@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<linen>
+  <menu>
+    <general>
+      <title>
+        <en>
+          System
+        </en>
+        <th>
+          ระบบ
+        </th>
+      </title>
+      <sub>
+        <en>
+          Home
+        </en>
+        <th>
+          หน้าหลัก
+        </th>
+      </sub>
+      <sub>
+        <en>
+          Dirty clothes Document
+        </en>
+        <th>
+          บันทึกรับผ้าสกปรก
+        </th>
+      </sub>
+      <sub>
+        <en>
+          Clean clothes Document
+        </en>
+        <th>
+          บันทึกรับผ้าสะอาด
+        </th>
+      </sub>
+      <sub>
+        <en>
+          Shelf Count
+        </en>
+        <th>
+          Shelf Count
+        </th>
+      </sub>
+      <sub>
+        <en>
+          Percentage
+        </en>
+        <th>
+          คิดเป็นเปอร์เซ็นต์
+        </th>
+      </sub>
+      <sub>
+        <en>
+          Inventory
+        </en>
+        <th>
+          คลังเก็บของ
+        </th>
+      </sub>
+      <sub>
+        <en>
+          Item Name
+        </en>
+        <th>
+          รายการ
+        </th>
+      </sub>
+      <sub>
+        <en>
+          Stock In
+        </en>
+        <th>
+          บันทึกรับเข้าสต๊อก
+        </th>
+      </sub>
+      <sub>
+        <en>
+          Disburse
+        </en>
+        <th>
+          บันทึกเบิกจ่าย
+        </th>
+      </sub>
+      <sub>
+        <en>
+          Date Chang Price
+        </en>
+        <th>
+          วันเปลี่ยนราคา
+        </th>
+      </sub>
+    </general>
+
+
+  
+  <system>
+    <title>
+      <en>
+        Stock
+      </en>
+      <th>
+        สต็อค
+      </th>
+    </title>
+    <sub>
+      <en>
+        Department
+      </en>
+      <th>
+        คลัง
+      </th>
+    </sub>
+    <sub>
+      <en>
+        Sub Department
+      </en>
+      <th>
+        คลังย่อย
+      </th>
+    </sub>
+    <sub>
+      <en>
+        Stock In
+      </en>
+      <th>
+        บันทึกรับเข้าคลัง
+      </th>
+    </sub>
+    <sub>
+      <en>
+        Stock Out
+      </en>
+      <th>
+        บันทึกส่งออกคลัง
+      </th>
+    </sub>
+    <sub>
+      <en>
+        Item Name
+      </en>
+      <th>
+        รายการ
+      </th>
+    </sub>
+        <sub>
+      <en>
+        Stock In Sub
+      </en>
+      <th>
+        บันทึกรับเข้าคลังย่อย
+      </th>
+    </sub>
+        <sub>
+      <en>
+        Stock out Sub
+      </en>
+      <th>
+        บันทึกส่งออกคลังย่อย
+      </th>
+    </sub>
+    <sub>
+      <en>
+        Inventory
+      </en>
+      <th>
+        คลังเก็บของ
+      </th>
+    </sub>
+    <sub>
+      <en>
+        Disburse
+      </en>
+      <th>
+        ขอเบิก
+      </th>
+    </sub>
+  </system>
+
+  <logout>
+    <en>
+      Logout
+    </en>
+    <th>
+      ออกจากระบบ
+    </th>
+  </logout>
+  </menu>
+</linen>
